@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="breadcrumb-area">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+            </ol>
+        </nav>
+    </div>
+    <app-task-detail [mode]="TaskModeEnum.Edit" #taskDetail></app-task-detail>
+    <div class="d-flex justify-content-end actions">
+        <button mat-raised-button color="primary" (click)="update()">Update</button>
+    </div>
+</div>

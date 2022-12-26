@@ -1,10 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
+import { NotFoundComponent } from './shares/components/not-found/not-found.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+	{
+		canActivate: [AuthGuard],
+		path: '',
+		loadChildren: () => import('./modules/task-manager/task-manager.module').then(m => m.TaskManagerModule)
+	},
+	{
+		canActivate: [LoginGuard],
+		path: 'login',
+		loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule)
+	},
+	{
+		path: '**',
+		component: NotFoundComponent
+	}
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes, { enableTracing: false })],
+	exports: [RouterModule]
 })
 export class AppRoutingModule { }

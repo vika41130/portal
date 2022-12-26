@@ -3,16 +3,27 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { taskReducer } from './state/task/task.reducer';
+import { NotFoundComponent } from './shares/components/not-found/not-found.component';
+import { MatButtonModule } from '@angular/material/button';
+import { HeaderComponent } from './shares/header/header.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+  		NotFoundComponent,
+    HeaderComponent,
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		MatButtonModule,
+		StoreModule.forRoot({task: taskReducer}),
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

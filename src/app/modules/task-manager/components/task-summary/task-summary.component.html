@@ -1,0 +1,18 @@
+<div class="header d-flex justify-content-center" *ngIf="index == 0">
+    <div class="flex-grow-1 left">
+        <div class="d-flex">
+            <div class="key">Key</div>
+            <div class="summary">Summary</div>
+        </div>
+    </div>
+    <div>Assignee</div>
+</div>
+<div class="body d-flex">
+    <div class="flex-grow-1 left">
+        <div class="d-flex">
+            <div class="key">{{ task!.key }}</div>
+            <div class="summary">{{ task!.summary }}</div>
+        </div>
+    </div>
+    <div>{{ task!.assignee ? task!.assignee!.name : '' }}</div>
+</div>

@@ -1,0 +1,9 @@
+.dialog-full {
+    width: 100%;
+    height: calc(100% - 120px);
+}
+.mat-dialog-actions {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

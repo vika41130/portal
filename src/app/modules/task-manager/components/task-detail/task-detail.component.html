@@ -1,0 +1,68 @@
+<div>
+	<form [formGroup]="detailForm">
+		<!-- Create -->
+		<div *ngIf="mode == TaskModeEnum.Create">
+			<mat-form-field appearance="fill">
+				<mat-label>Summary</mat-label>
+				<input type="text" matInput formControlName="summary">
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label>Description</mat-label>
+				<textarea rows="10" type="text" matInput formControlName="description"></textarea>
+			</mat-form-field>
+		</div>
+		<!-- Edit or View -->
+		<div *ngIf="mode != TaskModeEnum.Create">
+			<div class="header">
+				<div>
+					<mat-form-field appearance="fill">
+						<input type="text" matInput formControlName="summary">
+					</mat-form-field>
+				</div>
+				<div>
+					<button mat-raised-button type="button" (click)="doAction()">
+						<span *ngIf="task?.status == StatusEnum.ToDo">Start task</span>
+						<span *ngIf="task?.status == StatusEnum.InProgress">Complete task</span>
+						<span *ngIf="task?.status == StatusEnum.Done">Done</span>
+					</button>
+				</div>
+			</div>
+			<hr>
+			<div class="body">
+				<div class="d-flex">
+					<div class="d-flex flex-column left flex-grow-1">
+						<mat-label>Status: {{task?.status}}</mat-label>
+					</div>
+					<div class="d-flex flex-column right">
+						<mat-label>People</mat-label>
+						<hr>
+						<mat-form-field appearance="fill">
+							<input type="text" matInput [matAutocomplete]="auto" formControlName="assignee"
+								autofocus="false">
+							<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+								<mat-option *ngFor="let user of filteredOptions | async" [value]="user">
+									{{user.name}}
+								</mat-option>
+							</mat-autocomplete>
+						</mat-form-field>
+						<mat-label>Date</mat-label>
+						<hr>
+						<div>
+							<div>
+								Create: {{task?.created | date : 'short'}}
+							</div>
+							<div>
+								Updated: {{task?.updated | date : 'short'}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<mat-label>Description</mat-label>
+				<mat-form-field appearance="fill">
+					<textarea rows="10" type="text" matInput formControlName="description"></textarea>
+				</mat-form-field>
+			</div>
+		</div>
+	</form>
+</div>
