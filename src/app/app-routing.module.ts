@@ -6,9 +6,13 @@ import { NotFoundComponent } from './shares/components/not-found/not-found.compo
 
 const routes: Routes = [
 	{
-		canActivate: [AuthGuard],
+		pathMatch: 'full',
 		path: '',
-		loadChildren: () => import('./modules/task-manager/task-manager.module').then(m => m.TaskManagerModule)
+		redirectTo: 'user'
+	},
+	{
+		path: 'user',
+		loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
 	},
 	{
 		canActivate: [LoginGuard],

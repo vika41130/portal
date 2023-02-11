@@ -12,6 +12,7 @@ import { CacheService } from 'src/app/services/cache.service';
 export class LoginComponent implements OnInit {
 
 	loginForm!: FormGroup;
+	invalidUser!: boolean;
 	constructor(
 		private formBuilder: FormBuilder,
 		private router: Router,
@@ -36,27 +37,18 @@ export class LoginComponent implements OnInit {
 		return this.loginForm.get('password');
 	}
 	login() {
-		this.setUp();
-		this.router.navigateByUrl('dashboard');
+		this.invalidUser = false;
+		const user = this.cacheSvc.findUser(this.userName?.value, this.password?.value);
+		if (user) {
+			this.cacheSvc.setCurrentUser(user);
+			this.setUp();
+			this.router.navigateByUrl('user/detail');
+		} else {
+			this.invalidUser = true;
+		}
 	}
 	setUp() {
-		const user = new User(this.userName?.value, '');
-		this.cacheSvc.set('user', user);
-		const userList: Array<User> = [
-			{
-				name: 'John',
-				role: ''
-			},
-			{
-				name: 'David',
-				role: ''
-			},
-			{
-				name: 'Richard',
-				role: ''
-			}
-		];
-		this.cacheSvc.set('user_list', userList);
+		this.cacheSvc.fakeUserList();
 	}
 
 }

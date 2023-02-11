@@ -1,0 +1,63 @@
+<div>
+    <form [formGroup]="userForm" novalidate>
+        <mat-form-field appearance="fill">
+            <mat-label>Nick Name</mat-label>
+            <input type="text" matInput formControlName="nickName" [maxlength]="40" (ngModelChange)="checkNickNameExist()">
+            <mat-error *ngIf="nickName!.invalid">
+                {{nickName!.hasError('required') ? errorMsg.required : ''}}
+                {{nickName!.hasError('nickNameExist') ? errorMsg.nickNameExist : ''}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput formControlName="passWord" [maxlength]="40">
+            <mat-error *ngIf="passWord!.invalid">
+                {{passWord!.hasError('required') ? errorMsg.required : ''}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" matInput formControlName="confirmPassWord" [maxlength]="40">
+            <mat-error *ngIf="confirmPassWord!.invalid">
+                {{confirmPassWord!.hasError('required') ? errorMsg.required : ''}}
+                {{confirmPassWord!.hasError('passwordNotMatched') ? errorMsg.passwordNotMatch : ''}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput formControlName="email" [maxlength]="40" (ngModelChange)="checkEmailExist()">
+            <mat-error *ngIf="email!.invalid">
+                {{email!.hasError('required') ? errorMsg.required : ''}}
+                {{email!.hasError('email') ? errorMsg.emailInvalid : ''}}
+                {{email!.hasError('emailExist') ? errorMsg.emailExist : ''}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Phone</mat-label>
+            <input type="text" matInput formControlName="phone" digitOnly [maxlength]="15">
+            <mat-error *ngIf="phone!.invalid">
+                {{phone!.hasError('required') ? errorMsg.required : ''}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <input type="text" matInput [matAutocomplete]="auto" formControlName="country" [autofocus]="false">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let value of countryFilteredList$ | async" [value]="value">
+                    {{value}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="country!.invalid">
+                {{country!.hasError('required') ? errorMsg.required : ''}}
+            </mat-error>
+        </mat-form-field>
+        <div class="d-flex justify-content-end align-items-center">
+            <button mat-raised-button color="primary" (click)="submit()" type="button" [disabled]="userForm!.invalid">Submit</button>
+        </div>
+    </form>
+</div>

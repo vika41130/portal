@@ -6,7 +6,7 @@ import { CacheService } from '../services/cache.service';
 @Injectable({
 	providedIn: 'root'
 })
-export class LoginGuard implements CanActivate {
+export class UserGuardGuard implements CanActivate {
 	constructor(
 		private cacheSvc: CacheService,
 		private router: Router,
@@ -15,12 +15,14 @@ export class LoginGuard implements CanActivate {
 	}
 	canActivate(
 		route: ActivatedRouteSnapshot,
-		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-		if (this.cacheSvc.get('current_user')) {
-			this.router.navigateByUrl('user');
+		state: RouterStateSnapshot,
+	): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+		if (this.cacheSvc.get('user')) {
+			return true;
+		} else {
+			this.router.navigateByUrl('user/register');
+			return false;
 		}
-		return true;
-
 	}
 
 }

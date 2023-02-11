@@ -1,9 +1,21 @@
 export class User {
-    name!: string;
-    role!: string;
+    nickName!: string;
+    passWord!: string;
+    email!: string;
+    phone!: string;
+    country!: string;
 
-    constructor(name: string, role: string) {
-        this.name = name;
-        this.role = role;
+    constructor(
+        nickName?: string,
+        passWord?: string,
+        email?: string,
+        phone?: string,
+        country?: string,
+    ) {
+        this.nickName = nickName!;
+        this.passWord = passWord!;
+        this.email = email!;
+        this.phone = phone!;
+        this.country = country!;
     }
 }

@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
-import { taskReducer } from './state/task/task.reducer';
 import { NotFoundComponent } from './shares/components/not-found/not-found.component';
 import { MatButtonModule } from '@angular/material/button';
 import { HeaderComponent } from './shares/header/header.component';
@@ -14,14 +13,13 @@ import { HeaderComponent } from './shares/header/header.component';
 	declarations: [
 		AppComponent,
   		NotFoundComponent,
-    HeaderComponent,
+    	HeaderComponent,
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
 		MatButtonModule,
-		StoreModule.forRoot({task: taskReducer}),
 	],
 	providers: [],
 	bootstrap: [AppComponent]
